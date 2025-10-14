@@ -1,6 +1,8 @@
 ## graph ##
 ## by JARJARBIN'S STUDIO ##
 ## v1.0 ##
+from typing import Any, Generator
+
 
 class CMDError(Exception):
     
@@ -36,7 +38,9 @@ class CMDError(Exception):
                 str : CMDError
         """
         
-        s = '\n============================================================\n= \033[31m-------------------- ERROR DETECTED --------------------\033[0m =\n============================================================\n'
+        s = '\n============================================================\n'
+        s += '= \033[31m-------------------- ERROR DETECTED --------------------\033[0m =\n'
+        s += '============================================================\n'
         if self.cmd :
             s += '\033[31mCMD ERROR in :\n    " '
             if self.err_pos :
@@ -57,7 +61,8 @@ class CMDError(Exception):
             s += self.msg
         else :
             s += 'Error in command'
-        s += '\033[0m\n\n(try "help" to get information about commands)\n============================================================\n'
+        s += '\033[0m\n\n(try "help" to get information about commands)\n'
+        s += '============================================================\n'
         return s
 
 class GUI :
@@ -112,7 +117,7 @@ class GUI :
         GUI.plt.title("Graph viewer")
         GUI.plt.show()
     
-    def get_nodes_pos(self : object) -> dict :
+    def get_nodes_pos(self : object) -> Generator[int | float | Any, Any, None]:
         
         """
             get x and y position of all nodes
@@ -134,7 +139,7 @@ class Node :
     """
     
     def __init__(self : object, name : str, *, data : any = "\033[31mNo data\033[0m", pos : tuple[int | float | None, int | float | None] = (None, None)) -> None :
-        
+
         """
             create a Node
             
@@ -287,7 +292,7 @@ class Graph(GUI) :
         """
         
         if not node in self.nodes :
-            self.nodes[node] = Node(name)
+            self.nodes[node] = Node(node)
         return self.nodes[node]
     
     def add(self : object, name : str, data : any = "\033[31mNo data\033[0m") -> None :
@@ -709,7 +714,7 @@ class Interpretor :
         try :
             if inst[0] == "help" :
                 if len(inst) < 1 or len(inst) > 2 :
-                    raise CMDError(inst_copy, None, f'argument error (needs 0 or 1, gave {len(inst)-2})')
+                    raise CMDError(inst, None, f'argument error (needs 0 or 1, gave {len(inst)-2})')
                 if len(inst) == 1 :
                     s = "\nHELP commands :"
                     for x in cmd_list :
@@ -726,7 +731,7 @@ class Interpretor :
                     ret = s
             elif inst[0] == "help:sub" :
                 if len(inst) < 1 or len(inst) > 2 :
-                    raise CMDError(inst_copy, None, f'argument error (needs 0 or 1, gave {len(inst)-2})')
+                    raise CMDError(inst, None, f'argument error (needs 0 or 1, gave {len(inst)-2})')
                 if len(inst) == 1 :
                     s = "\nHELP subcommands :"
                     for x in sub_cmd_list :
@@ -781,6 +786,14 @@ class Interpretor :
             return ret
     
     def start(self : object) -> None :
+
+        """
+            start an interpretor
+
+            Parameter :
+                - self (object) : Interpretor object
+        """
+
         outpt = None
         actions = [["welcome"]]
         while not(actions[0] in [["q"], ["quit"]]) :
