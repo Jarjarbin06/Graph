@@ -522,7 +522,7 @@ get_ordre(self : object)
 
 ###### Usage :
 ```py
-MyGraphOrdre = VarMyGraph.get_ordre()
+MyGraphOrdre = VarMyGraph.get_size()
 ```
 
 ---

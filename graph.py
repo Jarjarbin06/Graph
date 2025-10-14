@@ -1,8 +1,8 @@
 ## graph ##
 ## by JARJARBIN'S STUDIO ##
 ## v1.0 ##
-from typing import Any, Generator
 
+from typing import Any, Generator
 
 class CMDError(Exception):
     
@@ -17,7 +17,7 @@ class CMDError(Exception):
             
             Parameter :
                 - self (object) : CMDError object
-                - cmd (list[str] | None) = None : list of every words in command
+                - cmd (list[str] | None) = None : list of every word in command
                 - err_pos (int | None) = None : position/index of the error in cmd
                 - msg (str | None) = None : message join to the error
         """
@@ -129,8 +129,8 @@ class GUI :
                 dict : positions
         """
         
-        for j in range(self.get_ordre()):
-            yield j*(2 * GUI.np.pi / self.get_ordre())
+        for j in range(self.get_size()):
+            yield j*(2 * GUI.np.pi / self.get_size())
 
 class Node :
     
@@ -138,7 +138,7 @@ class Node :
         Node of Graph
     """
     
-    def __init__(self : object, name : str, *, data : any = "\033[31mNo data\033[0m", pos : tuple[int | float | None, int | float | None] = (None, None)) -> None :
+    def __init__(self : object, name : str, *, data : Any = "\033[31mNo data\033[0m", pos : tuple[int | float | None, int | float | None] = (None, None)) -> None :
 
         """
             create a Node
@@ -147,7 +147,7 @@ class Node :
                 - self (object) : Node object
                 - name (str) : new Node's name
                 
-                - data (any)(optional) = "\033[31mNo data\033[0m" : new Node's data
+                - data (Any)(optional) = "\033[31mNo data\033[0m" : new Node's data
                 - pos (tuple[int | float | None, int | float | None])(optional) = (None, None) : new Node's position (GUI)
         """
         
@@ -226,7 +226,7 @@ class Node :
         
         return self.links
     
-    def get_data(self : object) -> any :
+    def get_data(self : object) -> Any :
         
         """
             get data of this Node
@@ -235,7 +235,7 @@ class Node :
                 - self (object) : Node object
             
             Return :
-                any : data
+                Any : data
         """
         
         return self.data
@@ -256,7 +256,7 @@ class Graph(GUI) :
         """
         
         self.nodes = {}
-        self.ordre = 0
+        self.size = 0
     
     def __str__(self : object) -> str :
         
@@ -295,7 +295,7 @@ class Graph(GUI) :
             self.nodes[node] = Node(node)
         return self.nodes[node]
     
-    def add(self : object, name : str, data : any = "\033[31mNo data\033[0m") -> None :
+    def add(self : object, name : str, data : Any = "\033[31mNo data\033[0m") -> None :
         
         """
             create and add a Node to this Graph
@@ -303,7 +303,7 @@ class Graph(GUI) :
             Parameter :
                 - self (object) : Graph object
                 - name (str) : new Node's name
-                - data (any) = "\033[31mNo data\033[0m" : new Node's data
+                - data (Any) = "\033[31mNo data\033[0m" : new Node's data
         """
         
         if not(name in self.nodes) :
@@ -359,7 +359,7 @@ class Graph(GUI) :
         for n in self.nodes :
             self.nodes[n].delete(node)
     
-    def new_data(self : object, node : str, data : any = "\033[31mNo data\033[0m") -> None :
+    def new_data(self : object, node : str, data : Any = "\033[31mNo data\033[0m") -> None :
         
         """
             change node's data to new data
@@ -367,7 +367,7 @@ class Graph(GUI) :
             Parameter :
                 - self (object) : Graph object
                 - node (str) : Node's name
-                - data (any) = "\033[31mNo data\033[0m" : new node's data
+                - data (Any) = "\033[31mNo data\033[0m" : new node's data
         """
         
         self.add(node)
@@ -397,7 +397,7 @@ class Graph(GUI) :
                 - self (object) : Graph object
         """
         
-        self.ordre = len(self.nodes)
+        self.size = len(self.nodes)
     
     def get_nodes(self : object) -> list[str] :
         
@@ -416,7 +416,7 @@ class Graph(GUI) :
             nodes_name.append(x)
         return nodes_name
     
-    def get_ordre(self : object) -> int :
+    def get_size(self : object) -> int :
         
         """
             get quantity of Nodes in this Graph
@@ -428,7 +428,7 @@ class Graph(GUI) :
                 int : Nodes' quantity
         """
         
-        return self.ordre
+        return self.size
     
     def get_links(self : object, node : str) -> list :
         
@@ -450,7 +450,7 @@ class Graph(GUI) :
                 links.append(link.name)
         return links
     
-    def get_data(self : object, node : str) -> any :
+    def get_data(self : object, node : str) -> Any :
         
         """
             get data from node
@@ -460,7 +460,7 @@ class Graph(GUI) :
                 - node (str) : Node's name
             
             Return :
-                any : data
+                Any : data
         """
         
         data = None
@@ -468,7 +468,7 @@ class Graph(GUI) :
             data = self.nodes[node].get_data()
         return data
     
-    def __call__(self : object, instructions_list : list[str]) -> any :
+    def __call__(self : object, instructions_list : list[str]) -> Any :
         
         """
             respond to given command line when calling a Graph object
@@ -478,7 +478,7 @@ class Graph(GUI) :
                 - instructions (str) : command line
             
             Return :
-                any : return of command
+                Any : return of command
         """
         
         ret = None
@@ -486,7 +486,7 @@ class Graph(GUI) :
         inst = instructions_list[1:]
         try :
             if len(inst) == 0 :
-                return f"{inst_copy[0]} contain {self.get_ordre()} nodes"
+                return f"{inst_copy[0]} contain {self.get_size()} nodes"
             if inst[0] == "add" :
                 if len(inst) < 2 or len(inst) > 3 :
                     raise CMDError(inst_copy, None, f'argument error (needs 1 or 2, gave {len(inst)-1})')
@@ -520,7 +520,7 @@ class Graph(GUI) :
             elif inst[0] == "get:s" :
                 if len(inst) != 1 :
                     raise CMDError(inst_copy, None, f'argument error (needs 0, gave {len(inst)-1})')
-                ret = self.get_ordre()
+                ret = self.get_size()
             elif inst[0] == "get:l" :
                 if len(inst) != 2 :
                     raise CMDError(inst_copy, None, f'argument error (needs 1, gave {len(inst)-1})')
@@ -553,44 +553,44 @@ class Graph(GUI) :
         else :
             return ret
 
-class Interpretor :
+class Interpreter :
     
     """
-        Interpretor object
+        Interpreter object
     """
     
-    interpretor_list = {}
+    interpreter_list = {}
     
     def __init__(self : object, name : str | None = None) -> None :
         
         """
-            create an Interpretor and add it to the created Interpretor list
+            create an Interpreter and add it to the created Interpreter list
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
                 - name (str | None
         """
         
         if not name :
             auto_name = 1
-            while ("Interpretor"+str(auto_name)) in Interpretor.interpretor_list :
+            while ("Interpreter"+str(auto_name)) in Interpreter.interpreter_list :
                 auto_name += 1
-            name = "Interpretor"+str(auto_name)
-        if not name in Interpretor.interpretor_list :
+            name = "Interpreter"+str(auto_name)
+        if not name in Interpreter.interpreter_list :
             self.name = name
             self.graphs = {}
-            Interpretor.interpretor_list[name] = self
+            Interpreter.interpreter_list[name] = self
     
     def __str__(self : object) -> str :
         
         """
-            get a string version of Interpretor
+            get a string version of Interpreter
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
             
             Return :
-                str : Interpretor
+                str : Interpreter
         """
         
         s = self.name
@@ -601,10 +601,10 @@ class Interpretor :
     def add(self : object, name : str) -> None :
         
         """
-            create and add a Graph to this Interpretor
+            create and add a Graph to this Interpreter
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
                 - name (str) : new Graph's name
         """
         
@@ -616,7 +616,7 @@ class Interpretor :
             get graph by name
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
                 - name (str) : Graph's name
             
             Return :
@@ -630,67 +630,42 @@ class Interpretor :
     def delete(self : object, name : str) -> None :
         
         """
-            delete Graph by name from this Interpretor
+            delete Graph by name from this Interpreter
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
                 - name (str) : Graph's name
         """
         
         if name in self.graphs :
             self.graphs.pop(name)
     
-    def __call__(self : object, instructions : list[str]) -> any :
+    def __call__(self : object, instructions : list[str]) -> Any :
         
         """
-            respond to given command line when calling an Interpretor object
+            respond to given command line when calling an Interpreter object
             
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
                 - instructions (str) : command line
             
             Return :
-                any : return of command
+                Any : return of command
         """
         
         from os import system
         ret = None
         inst = instructions
-        cmd_list_name = {
-            "add" : "\033[100madd \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m or \033[100madd [\033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m",
-            "del" : "\033[100mdel \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m or \033[100mdel [\033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m",
-            "get" : "\033[100mget \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m",
-            "shw" : "\033[100mshw\033[0m",
-            "graph" : "\033[100m\033[33m{\033[3mname\033[0m\033[100m\033[33m} {\033[3msubcmd\033[0m\033[100m\033[33m}\033[0m",
-            "clr" : "\033[100mclr\033[0m",
-            "quit" : "\033[100mquit\033[0m or \033[100mq\033[0m",
-            "q" : "\033[100mquit\033[0m or \033[100mq\033[0m"
-            }
-        sub_cmd_list_name = {
-            "add" : "\033[100madd \033[33m{\033[3mname\033[0m\033[100m\033[33m} {\033[3mdata\033[0m\033[100m\033[33m}\033[0m",
-            "add:l" : "\033[100madd:l \033[33m{\033[3mfrom\033[0m\033[100m\033[33m} {\033[3mto\033[0m\033[100m\033[33m}\033[0m or \033[100madd:l \033[33m{\033[3mfrom\033[0m\033[100m\033[33m}\033[0m\033[100m [\033[33m{\033[3mto\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m",
-            "del" : "\033[100mdel \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m",
-            "del:l" : "\033[100mdel:l \033[33m{\033[3mfrom\033[0m\033[100m\033[33m} {\033[3mto\033[0m\033[100m\033[33m}\033[0m or \033[100mdel:l \033[33m{\033[3mfrom\033[0m\033[100m\033[33m}\033[0m\033[100m [\033[33m{\033[3mto\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m",
-            "get" : "\033[100mget \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m",
-            "get:n" : "\033[100mget:n\033[0m",
-            "get:s" : "\033[100mget:s\033[0m",
-            "get:l" : "\033[100mget:l \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m",
-            "get:d" : "\033[100mget:d \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m",
-            "upt" : "\033[100mupt\033[0m",
-            "upt:d" : "\033[100mupt:d \033[33m{\033[3mname\033[0m\033[100m\033[33m} {\033[3mdata\033[0m\033[100m\033[33m}\033[0m",
-            "upt:p" : "\033[100mupt:p \033[33m{\033[3mname\033[0m\033[100m\033[33m} {\033[3mpos_x\033[0m\033[100m\033[33m} {\033[3mpos_y\033[0m\033[100m\033[33m}\033[0m",
-            "shw" : "\033[100mshw\033[0m"
-            }
         cmd_list = {
             "\033[100mhelp\033[0m" : "\033[92mget info about commands\033[0m (args : \033[31mNone\033[0m)",
             "\033[100mhelp:sub\033[0m" : "\033[92mget info about subcommands\033[0m (args : \033[31mNone\033[0m)",
             "\033[100madd \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m or \033[100madd [\033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m" : "\033[92mcreate a new graph\033[0m (args : \033[33mname\033[0m = \033[92mname of the new graph\033[0m)",
             "\033[100mdel \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m or \033[100mdel [\033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m\033[100m...]\033[0m" : "\033[92mdelete a graph\033[0m (args : \033[33mname\033[0m = \033[92mname of the graph\033[0m)",
             "\033[100mget \033[33m{\033[3mname\033[0m\033[100m\033[33m}\033[0m" : "\033[92mget a graph\033[0m (args : \033[33mname\033[0m = \033[92mname of the graph\033[0m)",
-            "\033[100mshw\033[0m" : "\033[92mshow the interpretor\033[0m (args : \033[31mNone\033[0m)",
+            "\033[100mshw\033[0m" : "\033[92mshow the interpreter\033[0m (args : \033[31mNone\033[0m)",
             "\033[100m\033[33m{\033[3mname\033[0m\033[100m\033[33m} {\033[3msubcmd\033[0m\033[100m\033[33m}\033[0m" : "\033[92msubcommand of a graph\033[0m (args : \033[33mname\033[0m = \033[92mname of the graph\033[0m ; \033[33msubcmd\033[0m = \033[92msubcommand of the graph\033[0m)",
-            "\033[100mclr\033[0m" : "\033[92mclear command interpretor window\033[0m (args : \033[31mNone\033[0m)",
-            "\033[100mquit\033[0m or \033[100mq\033[0m" : "\033[92mquit command interpretor\033[0m (args : \033[31mNone\033[0m)"
+            "\033[100mclr\033[0m" : "\033[92mclear command interpreter window\033[0m (args : \033[31mNone\033[0m)",
+            "\033[100mquit\033[0m or \033[100mq\033[0m" : "\033[92mquit command interpreter\033[0m (args : \033[31mNone\033[0m)"
             }
         sub_cmd_list = {
             "\033[100mhelp:sub\033[0m" : "\033[92mget info about subcommands\033[0m (args : \033[31mNone\033[0m)",
@@ -723,8 +698,8 @@ class Interpretor :
                 elif len(inst) == 2 :
                     found = False
                     s = f"\nHELP commands : {inst[1]} :"
-                    for cmd in cmd_list_name :
-                        if inst[1] in cmd :
+                    for cmd in cmd_list :
+                        if inst[1] in cmd or inst[1] in cmd_list[cmd] :
                             found = True
                             s += f"\n\n - {cmd} :\n      {cmd_list[cmd]}"
                     if not found :
@@ -743,8 +718,8 @@ class Interpretor :
                 elif len(inst) == 2 :
                     found = False
                     s = f"\nHELP subcommands : {inst[1]} :"
-                    for cmd in sub_cmd_list_name :
-                        if inst[1] in cmd :
+                    for cmd in sub_cmd_list :
+                        if inst[1] in cmd or inst[1] in sub_cmd_list[cmd] :
                             found = True
                             s += f"\n\n - {cmd} :\n      {sub_cmd_list[cmd]}"
                     if not found :
@@ -771,7 +746,7 @@ class Interpretor :
                 if len(inst) != 1 :
                     raise CMDError(inst, None, f'argument error (needs 0, gave {len(inst)-1})')
                 system("clear||cls")
-                ret = "welcome to the command interpretor of \033[96mgraph.py\033[0m (\033[96mv1.0\033[0m)\ncreated by Jarjarbin's STUDIO\n"
+                ret = "welcome to the command interpreter of \033[96mgraph.py\033[0m (\033[96mv1.0\033[0m)\ncreated by Jarjarbin's STUDIO\n"
             elif inst[0] == "clr" :
                 if len(inst) != 1 :
                     raise CMDError(inst, None, f'argument error (needs 0, gave {len(inst)-1})')
@@ -789,19 +764,19 @@ class Interpretor :
     def start(self : object) -> None :
 
         """
-            start an interpretor
+            start an interpreter
 
             Parameter :
-                - self (object) : Interpretor object
+                - self (object) : Interpreter object
         """
 
         actions = [["welcome"]]
         while not(actions[0] in [["q"], ["quit"]]) :
             if len(actions) == 1 :
-                output = self(actions[0])
+                output = self.__call__(actions[0])
                 if output : print(output)
             else :
-                for act in actions : self(act)
+                for act in actions : self.__call__(act)
             inpt = input("\033[96m>>> ").split(" ")
             n = 0
             n_max = len(inpt) - 1
@@ -838,3 +813,5 @@ class Interpretor :
                     n += 1
                 actions = [new_action]
             print("\033[0m", end = "")
+
+Interpreter().start()
