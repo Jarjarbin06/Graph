@@ -1,4 +1,4 @@
-# Graph v1.0
+# Graph v1.2
 ###### by JARJARBIN's studio
 **Graph** is a tool to manipulate graphs in python
 
@@ -60,8 +60,13 @@
 ### 1. IMPORT
 To import this module in your program, you just need to put these lines in your code :
 ```py
-from importlib.machinery import SourceFileLoader
-Graph = SourceFileLoader("graph", "D:\Programmation\Python\exo\graph_module\graph.py").load_module()
+from CMDError import CMDError
+from GUI import GUI
+from Node import Node
+from Graph import Graph
+from Interpreter import Interpreter
+
+import main as Graph
 ```
 
 ---
