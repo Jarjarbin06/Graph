@@ -9,7 +9,7 @@
 
 - [1. IMPORT](#1.%20IMPORT)
 
-- [2. INTERPRETOR](#2.%20INTERPRETOR)
+- [2. INTERPRETER](#2.%20INTERPRETER)
 	- [2.1. **__init__**](#2.1.%20**__init__**)
 	- [2.2. **__str__**](#2.2.%20**__str__**)
 	- [2.3. **__getitem__**](#2.3.%20**__getitem__**)
@@ -70,9 +70,9 @@ from Interpreter import Interpreter
 ---
 ---
 
-### 2. INTERPRETOR
-The class [*Interpretor*](#2.%20INTERPRETOR) is to be used as a command interpretor in a command window.
-Use **start()** to lauch the command prompt interpretor.
+### 2. INTERPRETER
+The class [*Interpreter*](#2.%20INTERPRETER) is to be used as a command interpreter in a command window.
+Use **start()** to lauch the command prompt interpreter.
 
 (child(s) = / ; parent(s) = /)
 
@@ -89,25 +89,29 @@ Use **start()** to lauch the command prompt interpretor.
 
 ---
 #### 2.1. **__init__**
-Create an instance of [*Interpretor*](#2.%20INTERPRETOR) named ==name==
+Create an instance of [*Interpreter*](#2.%20INTERPRETER) named ==name==
 ```
 __init__(self : object, name : str | None)
 	-> None
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
-- ==name== (**str** | **None**) = **None** : name of the new [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
+- ==name== (**str** | **None**) = **None** : name of the new [*Interpreter*](#2.%20INTERPRETER)
 ###### Return :
 - **None**
 
 ###### Usage :
 ```py
-VarMyInterpretor = Interpretor("MyNewInterpretor")
+VarMyInterpreter = Interpreter()
 ```
 or
 ```py
-Interpretor("MyNewInterpretor")
-VarMyInterpretor = Interpretor.interpretor_list["MyNewInterpretor"]
+VarMyInterpreter = Interpreter("MyNewInterpreter")
+```
+or
+```py
+Interpreter("MyNewInterpreter")
+VarMyInterpreter = Interpreter.interpreter_list["MyNewInterpreter"]
 ```
 
 ---
@@ -118,18 +122,18 @@ __str__(self : object)
 	-> str
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 ###### Return :
 - **str**
 
 ###### Usage :
 ```py
-MyString = VarMyInterpretor.__str__()
+MyString = VarMyInterpreter.__str__()
 print(MyString)
 ```
 or
 ```py
-print(VarMyInterpretor)
+print(VarMyInterpreter)
 ```
 
 ---
@@ -140,18 +144,18 @@ __getitem__(self : object, name : str)
 	-> Graph
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 - ==name== (**str**) : name of the [*Graph*](#3.%20GRAPH)
 ###### Return :
 - **[*Graph*](#3.%20GRAPH)**
 
 ###### Usage :
 ```py
-MyGraph = VarMyInterpretor.__getitem__("MyGraph")
+MyGraph = VarMyInterpreter.__getitem__("MyGraph")
 ```
 or
 ```py
-MyGraph = VarMyInterpretor["MyGraph"]
+MyGraph = VarMyInterpreter["MyGraph"]
 ```
 
 ---
@@ -162,22 +166,22 @@ __call__(self : object, instructions : list[str])
 	-> any
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 - ==instructions== (**list**[**str**]) : commands to execute
 ###### Return :
 - **any**
 
 ###### Usage :
 ```py
-MyCommandReturn = VarMyInterpretor("MyCommand")
+MyCommandReturn = VarMyInterpreter("MyCommand")
 ```
 or
 ```py
-MyCommandsReturn = VarMyInterpretor(["MyCommand1", "MyCommand2"])
+MyCommandsReturn = VarMyInterpreter(["MyCommand1", "MyCommand2"])
 ```
 or
 ```py
-MyCommandReturn = VarMyInterpretor.__call__("MyCommand")
+MyCommandReturn = VarMyInterpreter.__call__("MyCommand")
 ```
 
 ---
@@ -188,14 +192,14 @@ add(self : object, name : str)
 	-> None
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 - ==name== (**str**) : name of the new [*Graph*](#3.%20GRAPH)
 ###### Return :
 - **None**
 
 ###### Usage :
 ```py
-VarMyInterpretor.add("MyNewGraph")
+VarMyInterpreter.add("MyNewGraph")
 ```
 
 ---
@@ -206,31 +210,31 @@ delete(self : object, name : str)
 	-> None
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 - ==name== (**str**) : name of the [*Graph*](#3.%20GRAPH)
 ###### Return :
 - **None**
 
 ###### Usage :
 ```py
-VarMyInterpretor.delete("MyOldGraph")
+VarMyInterpreter.delete("MyOldGraph")
 ```
 
 ---
 #### 2.7. **start**
-Start a command interpretor (type "help" to see commands)
+Start a command interpreter (type "help" to see commands)
 ```
 start(self : object)
 	-> None
 ```
 ###### Parameter :
-- ==self== (**object**) : instance of [*Interpretor*](#2.%20INTERPRETOR)
+- ==self== (**object**) : instance of [*Interpreter*](#2.%20INTERPRETER)
 ###### Return :
 - **None**
 
 ###### Usage :
 ```py
-VarMyInterpretor.start()
+VarMyInterpreter.start()
 ```
 
 ---
@@ -868,26 +872,26 @@ Here is a little program example showing and testing some aspects of the module
 from importlib.machinery import SourceFileLoader
 Graph = SourceFileLoader("graph", "D:\Programmation\Python\exo\graph_module\graph.py").load_module()
 
-# Create an Interpretor :
-MyInterpretor = Graph.Interpretor("Interp1") # Interpretor.__init__
+# Create an Interpreter :
+MyInterpreter = Graph.Interpreter("Interp1") # Interpreter.__init__
 
-# Show MyInterpretor :
-print(MyInterpretor) # Interpretor.__str__
+# Show MyInterpreter :
+print(MyInterpreter) # Interpreter.__str__
 
 # Show a list of commands :
-print(MyInterpretor(["help"])) # Interpretor.__call__
-print(MyInterpretor(["help:sub"])) # Interpretor.__call__
+print(MyInterpreter(["help"])) # Interpreter.__call__
+print(MyInterpreter(["help:sub"])) # Interpreter.__call__
 
 # Create a Graph :
-MyInterpretor.add("Graph1") # Interpretor.add
-MyGraph = MyInterpretor["Graph1"] # Interpretor.__getitem__
+MyInterpreter.add("Graph1") # Interpreter.add
+MyGraph = MyInterpreter["Graph1"] # Interpreter.__getitem__
 
 # Show MyGraph :
 print(MyGraph) # Graph.__str__
 
 # Create some Nodes :
-MyInterpretor(["Graph1", "add", "MyNode1"]) # Interpretor.__call__
-MyInterpretor(["Graph1", "add", "MyNode2", "Data_of_MyNode2"]) # Interpretor.__call__
+MyInterpreter(["Graph1", "add", "MyNode1"]) # Interpreter.__call__
+MyInterpreter(["Graph1", "add", "MyNode2", "Data_of_MyNode2"]) # Interpreter.__call__
 MyGraph(["Graph1", "add", "MyNode3", "Data_of_MyNode3"]) # Graph.__call__
 MyGraph.add("MyNode4", "Data_of_MyNode4") # Graph.add
 
@@ -895,7 +899,7 @@ MyGraph.add("MyNode4", "Data_of_MyNode4") # Graph.add
 print(MyGraph) # Graph.__str__
 
 # Create some links :
-MyInterpretor(["Graph1", "add:l", "MyNode1", "MyNode2"]) # Intrepretor.__call__
+MyInterpreter(["Graph1", "add:l", "MyNode1", "MyNode2"]) # Interpreter.__call__
 MyGraph(["Graph1", "add:l", "MyNode2", "MyNode4"]) # Graph.__call__
 MyGraph.link("MyNode3", ["MyNode1", "MyNode4"]) # Graph.link
 
@@ -905,8 +909,8 @@ MyGraph.update() # Graph.update
 # Show MyGraph :
 print(MyGraph) # Graph.__str__
 
-# Show MyInterpretor :
-print(MyInterpretor) # Interpretor.__str__
+# Show MyInterpreter :
+print(MyInterpreter) # Interpreter.__str__
 
 # Show MyGraph in GUI window :
 MyGraph.show() # GUI.show
