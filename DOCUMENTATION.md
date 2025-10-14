@@ -65,8 +65,6 @@ from GUI import GUI
 from Node import Node
 from Graph import Graph
 from Interpreter import Interpreter
-
-import main as Graph
 ```
 
 ---
