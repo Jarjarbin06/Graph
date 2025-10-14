@@ -168,7 +168,7 @@ class Node :
                 str : Node
         """
         
-        if self.links == [] :
+        if not self.links:
             return f"{self.name} ({self.data}) -> \033[31mNo link\033[0m"
         s = f"{self.name} ({self.data}) -> "
         for item in self.links :
@@ -338,7 +338,7 @@ class Graph(GUI) :
                 - link2 (str | list[str] | None)(optional) = None : name(s) of Node(s)
         """
         
-        if type(link2) == None :
+        if not type(link2):
             self.nodes[link_from].delete_all()
         if type(link2) == str :
             link2 = [link2]
@@ -553,7 +553,6 @@ class Graph(GUI) :
         else :
             return ret
 
-###créer les doc-strings###
 class Interpretor :
     
     """
@@ -565,7 +564,7 @@ class Interpretor :
     def __init__(self : object, name : str | None = None) -> None :
         
         """
-            create a Interpretor and add it to the created Interpretor list
+            create an Interpretor and add it to the created Interpretor list
             
             Parameter :
                 - self (object) : Interpretor object
@@ -722,11 +721,14 @@ class Interpretor :
                     s += "\n"
                     ret = s
                 elif len(inst) == 2 :
-                    s = f"\nHELP subcommands : {inst[1]} :"
-                    if inst[1] in cmd_list_name :
-                        s += f"\n\n - {cmd_list_name[inst[1]]} :\n      {cmd_list[cmd_list_name[inst[1]]]}"
-                    else :
-                        s += "\n\n   \033[31msubcommand not found\033[0m"
+                    found = False
+                    s = f"\nHELP commands : {inst[1]} :"
+                    for cmd in cmd_list_name :
+                        if inst[1] in cmd :
+                            found = True
+                            s += f"\n\n - {cmd} :\n      {cmd_list[cmd]}"
+                    if not found :
+                        s += "\n\n   \033[31mcommand not found\033[0m"
                     s += "\n"
                     ret = s
             elif inst[0] == "help:sub" :
@@ -739,14 +741,13 @@ class Interpretor :
                     s += "\n"
                     ret = s
                 elif len(inst) == 2 :
-                    cmds = {}
                     found = False
                     s = f"\nHELP subcommands : {inst[1]} :"
-                    for cmd in sub_cmd_list :
+                    for cmd in sub_cmd_list_name :
                         if inst[1] in cmd :
                             found = True
                             s += f"\n\n - {cmd} :\n      {sub_cmd_list[cmd]}"
-                    if not(found) :
+                    if not found :
                         s += "\n\n   \033[31msubcommand not found\033[0m"
                     s += "\n"
                     ret = s
@@ -794,19 +795,16 @@ class Interpretor :
                 - self (object) : Interpretor object
         """
 
-        outpt = None
         actions = [["welcome"]]
         while not(actions[0] in [["q"], ["quit"]]) :
             if len(actions) == 1 :
-                outpt = self(actions[0])
-                if outpt : print(outpt)
+                output = self(actions[0])
+                if output : print(output)
             else :
                 for act in actions : self(act)
-            outpt = None
             inpt = input("\033[96m>>> ").split(" ")
             n = 0
             n_max = len(inpt) - 1
-            actions = []
             is_multiple = False
             for x in inpt :
                 if '[' in x :
