@@ -1,6 +1,11 @@
-## graph ##
-## by JARJARBIN'S STUDIO ##
-## v1.2 ##
+#############################
+###                       ###
+###       Graph v1.2      ###
+###  ----CMDError.py----  ###
+###                       ###
+###=======================###
+### by JARJARBIN's STUDIO ###
+#############################
 
 class CMDError(Exception):
     """

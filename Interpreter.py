@@ -1,6 +1,11 @@
-## graph ##
-## by JARJARBIN'S STUDIO ##
-## v1.2 ##
+#############################
+###                       ###
+###       Graph v1.2      ###
+### ----Interpreter.py----###
+###                       ###
+###=======================###
+### by JARJARBIN's STUDIO ###
+#############################
 
 from typing import Any
 from CMDError import CMDError
