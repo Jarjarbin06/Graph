@@ -208,6 +208,8 @@ class Interpreter:
                 if len(inst) != 1:
                     raise CMDError(inst, None, f'argument error (needs 0, gave {len(inst) - 1})')
                 system("clear||cls")
+            elif inst[0] == "":
+                ret = "\n"
             elif inst[0] in self.graphs:
                 ret = self.graphs[inst[0]](inst)
             else:
@@ -234,41 +236,43 @@ class Interpreter:
                 if output: print(output)
             else:
                 for act in actions: self.__call__(act)
+            actions = [[""]]
             inpt = input("\033[96m>>> ").split(" ")
-            n = 0
-            n_max = len(inpt) - 1
-            is_multiple = False
-            for x in inpt:
-                if '[' in x:
-                    is_multiple = True
-            if is_multiple:
-                new_actions = []
-                argument = []
-                while n <= n_max:
-                    if inpt[n][0] == '[':
-                        arguments = []
-                        while inpt[n][-1] != ']' and n <= n_max:
-                            arguments.append(inpt[n].removeprefix('['))
-                            n += 1
-                        arguments.append(inpt[n][:-1])
-                        for x in arguments:
-                            new_actions.append(argument + [x])
-                    else:
-                        argument.append(inpt[n])
-                    n += 1
-                actions = new_actions
-            else:
-                new_action = []
-                while n <= n_max:
-                    if inpt[n][0] == '"':
-                        argument = ""
-                        while inpt[n][-1] != '"' and n <= n_max:
-                            argument += inpt[n].removeprefix('"') + " "
-                            n += 1
-                        argument += inpt[n][:-1]
-                    else:
-                        argument = inpt[n]
-                    new_action.append(argument)
-                    n += 1
-                actions = [new_action]
+            if len(inpt[0]) > 0:
+                n = 0
+                n_max = len(inpt) - 1
+                is_multiple = False
+                for x in inpt:
+                    if '[' in x:
+                        is_multiple = True
+                if is_multiple:
+                    new_actions = []
+                    argument = []
+                    while n <= n_max:
+                        if inpt[n][0] == '[':
+                            arguments = []
+                            while inpt[n][-1] != ']' and n <= n_max:
+                                arguments.append(inpt[n].removeprefix('['))
+                                n += 1
+                            arguments.append(inpt[n][:-1])
+                            for x in arguments:
+                                new_actions.append(argument + [x])
+                        else:
+                            argument.append(inpt[n])
+                        n += 1
+                    actions = new_actions
+                else:
+                    new_action = []
+                    while n <= n_max:
+                        if inpt[n][0] == '"':
+                            argument = ""
+                            while inpt[n][-1] != '"' and n <= n_max:
+                                argument += inpt[n].removeprefix('"') + " "
+                                n += 1
+                            argument += inpt[n][:-1]
+                        else:
+                            argument = inpt[n]
+                        new_action.append(argument)
+                        n += 1
+                    actions = [new_action]
             print("\033[0m", end="")
