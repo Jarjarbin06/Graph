@@ -304,6 +304,7 @@ class Graph(GUI):
                 if len(inst) != 1:
                     raise CMDError(inst_copy, None, f'argument error (needs 0, gave {len(inst) - 1})')
                 self.update()
+                print("data updated")
             elif inst[0] == "upt:d":
                 if len(inst) != 3:
                     raise CMDError(inst_copy, None, f'argument error (needs 2, gave {len(inst) - 1})')
